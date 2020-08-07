@@ -10,14 +10,18 @@ class App extends React.Component{
     }
 
     fetchAdvice = () => {
-        axios.get('https://api.adviceslip.com/advice')
+        
+        const id = Math.floor(Math.random() * 250)+1; 
+        axios.get('https://api.adviceslip.com/advice/' + id)
              .then((response) =>  {
-                const {advice} = response.data.slip;
-                console.log(advice);
+                var data = JSON.parse(response.data + "}");
+                const {advice} = data.slip;
                 this.setState({advice})
              })
              .catch((error) => {
                 console.log(error);
+                const advice = "I'm out of advice ! u clicked me several times";
+                this.setState({advice})
              });
     }
 
